@@ -5,6 +5,9 @@ import io.vertx.core.Future
 import io.vertx.core.http.HttpServer
 import io.vertx.ext.web.Router
 
+val HOST = "localhost"
+val PORT = 8080
+
 class Server : AbstractVerticle() {
 
     var server: HttpServer? = null
@@ -15,7 +18,7 @@ class Server : AbstractVerticle() {
     override fun start(future: Future<Void>) {
         server = vertx.createHttpServer()
         server?.requestHandler { router.accept(it) } // no method reference :( https://github.com/Kotlin/KEEP/issues/5
-        server?.listen(8080) { result ->
+        server?.listen(PORT) { result ->
             if (result.succeeded()) {
                 future.complete()
             } else {
