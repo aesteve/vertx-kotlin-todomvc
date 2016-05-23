@@ -38,7 +38,7 @@ run {
 }
 
 shadowJar  {
-  classifier = ''
+  archiveName = 'vertx-kotlin-todomvc.jar'
   manifest {
     attributes 'Main-Verticle': mainVerticle
   }
