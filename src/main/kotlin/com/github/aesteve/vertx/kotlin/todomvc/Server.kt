@@ -19,7 +19,7 @@ class Server : AbstractVerticle() {
     override fun start(future: Future<Void>) {
         server = vertx.createHttpServer(HttpServerOptions().setPort(PORT).setHost(HOST))
         server?.requestHandler { router.accept(it) } // no method reference :( https://github.com/Kotlin/KEEP/issues/5
-        server?.listen() { result ->
+        server?.listen { result ->
             if (result.succeeded()) {
                 future.complete()
             } else {
