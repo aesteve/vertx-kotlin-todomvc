@@ -34,6 +34,10 @@ run {
   args = ['run', mainVerticle]
 }
 
+// For Heroku deployment
+task stage {
+  dependsOn run
+}
 
 task wrapper(type: Wrapper) {
   gradleVersion = "2.13"
