@@ -14,11 +14,18 @@ class Server : AbstractVerticle() {
     val router: Router by lazy {
         createRouter(vertx)
     }
+    val port: Int by lazy {
+        val systemPort = System.getenv("PORT")
+        when(systemPort) {
+            null -> PORT
+            else -> Integer.valueOf(systemPort)
+        }
+    }
 
     override fun start(future: Future<Void>) {
         server = vertx.createHttpServer()
         server?.requestHandler { router.accept(it) } // no method reference :( https://github.com/Kotlin/KEEP/issues/5
-        server?.listen(PORT) { result ->
+        server?.listen(port) { result ->
             if (result.succeeded()) {
                 future.complete()
             } else {
